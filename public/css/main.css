@@ -7,16 +7,16 @@ body {
 }
 
 main #subtitle {
-    width: 500px;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
     padding: 5px;
-    font-size: 19px;
+    font-size: 25px;
     margin-bottom: 5px;
 }
 
 nav {
-    width: 500px;
+    width: 50%;
     text-align: center;
     margin: 0 auto;
 }
@@ -42,12 +42,12 @@ main #logo {
     font-size: 150px;
     color: #f8f8f2;
     text-align: center;
-    width: 500px;
+    width: 50%;
     margin: 0 auto;
 }
 
 .console {
-    width: 500px;
+    width: 40%;
     margin: 0 auto;
     box-shadow: 3px 3px 3px rgba(0,0,0,0.3);
     border-radius: 4px;
@@ -57,6 +57,7 @@ main #logo {
     background: #272822;
     padding: 4px;
     border-radius: 0 0 4px 4px;
+    overflow: auto;
 }
 
 .console .title {
@@ -73,7 +74,7 @@ main #logo {
 }
 
 #github {
-    width: 500px;
+    width: 50%;
     margin: 0 auto;
     text-align: center;
     padding-bottom: 5px;
@@ -107,4 +108,39 @@ code .variable {
 
 code .string {
     color: #A6E22E;
+}
+
+@media screen and (max-width: 1604px) {
+    .console {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 820px) {
+    .console, main #logo, main #subtitle, nav, #github {
+        width: 80%;
+    }
+    
+    main #logo {
+        font-size: 100px;
+    }
+}
+
+@media screen and (max-width: 575px) {
+    .console, main #logo, main #subtitle, nav, #github {
+        width: 100%;
+    }
+    
+    .console {
+        border-radius: 0;
+    }
+    
+    .console .title, .console .body {
+        border-radius: 0;
+    }
+    
+    .console .body {
+        padding-left: 6px;
+        padding-right: 6px;
+    }
 }
