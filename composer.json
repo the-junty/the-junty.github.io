@@ -1,0 +1,6 @@
+{
+    "require-dev": {
+        "junty/junty": "^0.2",
+        "gabrieljmj/junty-minify": "^0.1"
+    }
+}
