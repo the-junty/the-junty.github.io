@@ -20,75 +20,68 @@
     <meta property="og:image" content="http://the-junty.github.io/public/images/logo.png">
     <meta property="og:image:type" content="image/png">
     <meta property="og:type" content="website">
+    
+    <script async defer id="github-bjs" src="https://buttons.github.io/buttons.js"></script>
+    <script src="public/dist/js/main.js"></script>
 </head>
 <body>
-    <main>
-        <div id="logo">junty</div>
+    <div class="div30px"></div>
+    
+    <nav>
+    </nav>
         
-        <div id="subtitle">
-            <b>Automation for streams handling with tasks for PHP 7</b>
-        </div>
+    <header>
+    </header>
         
+    <main>    
         <div class="console">
             <div class="title">
                 <span class="text">juntyfile.php</span>
             </div>
             <div class="body">
-                <code class="text">
-                    &lt;?php
-                    <br>
+                <pre class="text">
+&lt;?php
+<span class="keyword">require</span> <span class="string">'vendor/autoload.php'</span>;
+
+<span class="keyword">use</span> Junty\Runner\JuntyRunner;
+<span class="keyword">use</span> Gabrieljmj\JuntyMinify\{Css <span class="keyword">as</span> CssMinifier, Js <span class="keyword">as</span> JsMinifier};
                     
-                    <span class="keyword">require</span> <span class="string">'vendor/autoload.php'</span>;
+<span class="variable">$junty</span> =  <span class="keyword">new</span> JuntyRunner();
                     
-                    <br><br>
-                    
-                    <span class="keyword">use</span> Junty\Runner\JuntyRunner;<br>
-                    <span class="keyword">use</span> Gabrieljmj\JuntyMinify\{Css <span class="keyword">as</span> CssMinifier, 
-                    Js <span class="keyword">as</span> JsMinifier};
-                    
-                    <br><br>
-                    
-                    <span class="variable">$junty</span> =  <span class="keyword">new</span> JuntyRunner();
-                    
-                    <br><br>
-                    
-                    <span class="variable">$junty</span>->group(<span class="string">'minify'</span>, <span class="keyword">function</span> () {
-                    <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$this</span>->task(<span class="string">'css'</span>, <span class="keyword">function</span> () {
-                        <br>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$this</span>->src(<span class="string">'./public/css/*.css'</span>)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->forStreams(<span class="keyword">new</span> CssMinifier())<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->forStreams(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->toDir(<span class="string">'public/dist/css'</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
-                        <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;});
-                    <br><br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$this</span>->task(<span class="string">'js'</span>, <span class="keyword">function</span> () {
-                        <br>
-                     &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$this</span>->src(<span class="string">'./public/js/*.js'</span>)<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->forStreams(<span class="keyword">new</span> JsMinifier())<br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->forStreams(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;$this->toDir(<span class="string">'public/dist/js'</span>)<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);
-                        <br>
-                    &nbsp;&nbsp;&nbsp;&nbsp;});<br>});
-                    <br><br>
-                    
-                    <span class="variable">$junty</span>->task(<span class="string">'zip'</span>, <span class="keyword">function</span> () {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$this</span>->src(<span class="string">'./*'</span>)<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;->forStreams(<span class="keyword">function</span> (<span class="keyword">array</span> <span class="variable">$streams</span>) {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$zip</span> = <span class="keyword">new</span> ZipArchive();<br>
-    <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">if</span> (<span class="variable">$zip</span>->open(<span class="string">'dest.zip'</span>, ZipArchive::<span class="variable">CREATE</span>)) {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="keyword">foreach</span> (<span class="variable">$streams</span> <span class="keyword">as</span> <span class="variable">$stream</span>) {<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$zip</span>->addFromString(<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$stream</span>->getMetaData(<span class="string">'uri'</span>),<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$stream</span>->getContents()<br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;);<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-    <br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="variable">$zip</span>->close();<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br>
-    &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;});<br>
+<span class="variable">$junty</span>->group(<span class="string">'minify'</span>, <span class="keyword">function</span> () {
+    <span class="variable">$this</span>->task(<span class="string">'css'</span>, <span class="keyword">function</span> () {
+        <span class="variable">$this</span>->src(<span class="string">'./public/css/*.css'</span>)
+            ->forStreams(<span class="keyword">new</span> CssMinifier())
+            ->forStreams(<span class="variable">$this</span>->toDir(<span class="string">'public/dist/css'</span>));
     });
                     
-                    <br><br>
-                    <span class="keyword">return</span> <span class="variable">$junty</span>;
-                </code>
+    <span class="variable">$this</span>->task(<span class="string">'js'</span>, <span class="keyword">function</span> () {
+        <span class="variable">$this</span>->src(<span class="string">'./public/js/*.js'</span>)
+            ->forStreams(<span class="keyword">new</span> JsMinifier())
+            ->forStreams(<span class="variable">$this</span>->toDir(<span class="string">'public/dist/js'</span>));                 
+    });
+});
+                    
+                    
+<span class="variable">$junty</span>->task(<span class="string">'zip'</span>, <span class="keyword">function</span> () {
+    <span class="variable">$this</span>->src(<span class="string">'./*'</span>)
+        ->forStreams(<span class="keyword">function</span> (<span class="keyword">array</span> <span class="variable">$streams</span>) {
+            <span class="variable">$zip</span> = <span class="keyword">new</span> ZipArchive();
+    
+            <span class="keyword">if</span> (<span class="variable">$zip</span>->open(<span class="string">'dest.zip'</span>, ZipArchive::<span class="variable">CREATE</span>)) {
+                <span class="keyword">foreach</span> (<span class="variable">$streams</span> <span class="keyword">as</span> <span class="variable">$stream</span>) {
+                    <span class="variable">$zip</span>->addFromString(
+                        <span class="variable">$stream</span>->getMetaData(<span class="string">'uri'</span>),
+                        <span class="variable">$stream</span>->getContents()
+                    );
+                }
+            
+                <span class="variable">$zip</span>->close();
+            }
+        });
+});
+
+<span class="keyword">return</span> <span class="variable">$junty</span>;</pre>
             </div>
         </div>
         
@@ -110,23 +103,9 @@
                 </code>
             </div>
         </div>
-        
-        <div class="div10px"></div>
-        
-        <nav>
-            <li><a href="https://github.com/the-junty/junty-plugins/blob/master/README.md">Plugins</a></li>
-            <li>&#8226;</li>
-            <li><a href="https://github.com/the-junty/junty/blob/master/README.md#usage">Documentation</a></li>
-            <div style="clear:both"></div>
-        </nav>
-        
-        <div class="div30px"></div>
-        
-        <div id="github">
-            <a href="https://github.com/the-junty/junty" title="GitHub's repository">
-                <img src="public/images/github-logo.png" alt="GitHub" class="github-icon" />
-            </a>
-        </div>
     </main>
+    
+    <footer>
+    </footer>
 </body>
 </html>
