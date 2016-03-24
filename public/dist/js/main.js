@@ -102,11 +102,15 @@ window.onload = function () {
     });
 
     (0, _importTemplate.importTemplate)('template/header.html').then(function (content) {
-      document.querySelector('header').appendChild(content.body);
+      [].forEach.call(content.body.childNodes, function (child) {
+        document.querySelector('header').appendChild(child);
+      });
     });
 
     (0, _importTemplate.importTemplate)('template/footer.html').then(function (content) {
-      document.querySelector('footer').appendChild(content.body);
+      [].forEach.call(content.body.childNodes, function (child) {
+        document.querySelector('footer').appendChild(child);
+      });
     });
   })(document);
 };

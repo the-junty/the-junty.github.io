@@ -19,11 +19,15 @@ window.onload = function () {
     });
 
     importTemplate('template/header.html').then(content => {
-      document.querySelector('header').appendChild(content.body);
+      [].forEach.call(content.body.childNodes, child => {
+        document.querySelector('header').appendChild(child);
+      });
     });
 
     importTemplate('template/footer.html').then(content => {
-      document.querySelector('footer').appendChild(content.body);
+      [].forEach.call(content.body.childNodes, child => {
+        document.querySelector('footer').appendChild(child);
+      });
     });
   })(document);
 };
